@@ -1,0 +1,31 @@
+<!-- Custom Footer and Link -->
+ 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Remove the "Powered by Ghost" area entirely (if desired)
+    var poweredBy = document.querySelector(".gh-footer-copyright a[href*='ghost.org']");
+    if (poweredBy) {
+      poweredBy.parentElement.remove();
+    }
+
+    // Create a new block-level footer text
+    var newFooter = document.createElement("div");
+    newFooter.className = "gh-footer-copyright";
+    newFooter.innerHTML = "© 2025 Slinger Super Speedway.<br />Published by <a href='https://klabsdev.com/?utm_source=Slinger+Super+Speedway+Footer' target='_blank' rel='noopener'>Kulik Labs Development</a>";
+
+    // Append it to the bottom of the footer
+    var footer = document.querySelector(".gh-footer");
+    if (footer) {
+      footer.appendChild(newFooter);
+    }
+  });
+</script>
+
+<style>
+  .gh-footer-copyright {
+    text-align: center;
+    color: #fff;
+    margin-top: 1em;
+    font-size: 0.9em;
+  }
+</style>

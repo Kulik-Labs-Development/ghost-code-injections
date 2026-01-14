@@ -1,0 +1,76 @@
+<!-- Checkered Navigation Bar --> 
+<style>
+/* Checkered Flag Navigation Pattern */
+.gh-navigation {
+    position: relative;
+    background: #92278f;
+}
+
+/* Create proper checkered pattern - completely static */
+.gh-navigation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(45deg, #ffffff 25%, transparent 25%),
+        linear-gradient(-45deg, #ffffff 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ffffff 75%),
+        linear-gradient(-45deg, transparent 75%, #ffffff 75%);
+    background-size: 32px 32px;
+    background-position: 0 0, 0 16px, 16px -16px, -16px 0px;
+    z-index: 0;
+}
+
+/* Traveling wave overlay */
+.gh-navigation::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -300px;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0px,
+        transparent 50px,
+        rgba(255, 255, 255, 0.15) 100px,
+        rgba(255, 255, 255, 0.25) 150px,
+        rgba(255, 255, 255, 0.15) 200px,
+        transparent 250px,
+        transparent 300px
+    );
+    background-size: 300px 100%;
+    background-repeat: repeat-x;
+    animation: wave-travel 3s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(3px);
+}
+
+/* Wave travels from left to right continuously */
+@keyframes wave-travel {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 300px 0;
+    }
+}
+
+/* Hide pattern when mobile menu is open */
+.gh-navigation.is-open::before,
+.gh-navigation.is-open::after {
+    display: none;
+}
+
+/* Ensure navigation content stays visible above the pattern */
+.gh-navigation-inner,
+.gh-navigation-brand,
+.gh-navigation-menu,
+.gh-navigation-actions {
+    position: relative;
+    z-index: 2;
+}
+</style>

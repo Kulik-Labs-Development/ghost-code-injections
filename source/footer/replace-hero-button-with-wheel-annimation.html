@@ -1,0 +1,367 @@
+
+<!-- Replace Hero Button with Wheel Animation -->
+<!-- This is a fun script to do some goofy home page annimation -->
+ 
+<style>
+  /* Hide the original button background */
+  .kg-header-card-button.burnout-active {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    transform: scale(0.7);
+    transform-origin: center;
+  }
+  
+  .burnout-wheel {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .wheel-outer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    animation: spin 1.0s linear infinite;
+  }
+  
+  .wheel-outer img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  /* Smoke puff coming from the wheel */
+  .smoke-puff-container {
+    position: relative;
+    padding: 22px 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translate(16px, 22px);
+  }
+  
+  .smoke-puff-container:hover {
+    transform: scale(1.08);
+  }
+  
+  /* Multiple overlapping smoke clouds - DARKER and LARGER */
+  .smoke-cloud {
+    position: absolute;
+    background: radial-gradient(circle, 
+      rgba(100, 100, 100, 0.95) 0%, 
+      rgba(80, 80, 80, 0.85) 40%,
+      rgba(60, 60, 60, 0.6) 70%,
+      rgba(40, 40, 40, 0) 100%);
+    border-radius: 50%;
+    filter: blur(4px);
+    transition: all 0.3s ease;
+  }
+  
+  /* Fire gradient on hover - NO TRANSPARENCY */
+  .smoke-puff-container:hover .smoke-cloud {
+    background: radial-gradient(circle, 
+      rgba(255, 180, 0, 1) 0%, 
+      rgba(255, 100, 0, 0.95) 30%,
+      rgba(255, 50, 0, 0.85) 60%,
+      rgba(200, 0, 0, 0.5) 85%,
+      rgba(100, 0, 0, 0) 100%);
+    filter: blur(5px);
+  }
+  
+  .smoke-cloud-1 {
+    width: 120px;
+    height: 90px;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%);
+    animation: smoke-float-1 3s ease-in-out infinite;
+  }
+  
+  .smoke-puff-container:hover .smoke-cloud-1 {
+    animation: fire-flicker-1 0.15s ease-in-out infinite;
+  }
+  
+  .smoke-cloud-2 {
+    width: 110px;
+    height: 85px;
+    top: 10%;
+    right: -5px;
+    animation: smoke-float-2 3.5s ease-in-out infinite;
+  }
+  
+  .smoke-puff-container:hover .smoke-cloud-2 {
+    animation: fire-flicker-2 0.18s ease-in-out infinite;
+  }
+  
+  .smoke-cloud-3 {
+    width: 105px;
+    height: 80px;
+    bottom: 5%;
+    right: -10px;
+    animation: smoke-float-3 3.2s ease-in-out infinite;
+  }
+  
+  .smoke-puff-container:hover .smoke-cloud-3 {
+    animation: fire-flicker-3 0.16s ease-in-out infinite;
+  }
+  
+  .smoke-cloud-4 {
+    width: 115px;
+    height: 88px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    animation: smoke-float-4 2.8s ease-in-out infinite;
+  }
+  
+  .smoke-puff-container:hover .smoke-cloud-4 {
+    animation: fire-flicker-4 0.2s ease-in-out infinite;
+  }
+  
+  .smoke-text {
+    position: relative;
+    z-index: 10;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 10px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  
+  .smoke-puff-container:hover .smoke-text {
+    color: #fff;
+    text-shadow: 
+      0 0 10px rgba(255, 200, 0, 0.8),
+      0 0 20px rgba(255, 100, 0, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.9);
+  }
+  
+  /* Rising smoke particles from wheel */
+  .smoke-particles {
+    position: absolute;
+    bottom: 5px;
+    left: -10px;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .smoke-particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(200, 200, 200, 0.6);
+    border-radius: 50%;
+    filter: blur(2px);
+  }
+  
+  .smoke-particle:nth-child(1) {
+    bottom: 0;
+    left: 20px;
+    animation: particle-rise-1 1.5s ease-out infinite;
+  }
+  
+  .smoke-particle:nth-child(2) {
+    bottom: 0;
+    left: 30px;
+    animation: particle-rise-2 1.8s ease-out infinite;
+    animation-delay: 0.3s;
+  }
+  
+  .smoke-particle:nth-child(3) {
+    bottom: 0;
+    left: 15px;
+    animation: particle-rise-3 1.6s ease-out infinite;
+    animation-delay: 0.6s;
+  }
+  
+  .smoke-particle:nth-child(4) {
+    bottom: 0;
+    left: 25px;
+    animation: particle-rise-4 1.7s ease-out infinite;
+    animation-delay: 0.9s;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes smoke-float-1 {
+    0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.95; }
+    50% { transform: translateY(-50%) scale(1.05); opacity: 0.9; }
+  }
+  
+  @keyframes smoke-float-2 {
+    0%, 100% { transform: scale(1) translateX(0); opacity: 0.9; }
+    50% { transform: scale(1.08) translateX(3px); opacity: 0.85; }
+  }
+  
+  @keyframes smoke-float-3 {
+    0%, 100% { transform: scale(1) translateX(0); opacity: 0.85; }
+    50% { transform: scale(1.06) translateX(-2px); opacity: 0.8; }
+  }
+  
+  @keyframes smoke-float-4 {
+    0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-50%) scale(1.1); opacity: 0.75; }
+  }
+  
+  /* Fire flicker animations for hover */
+  @keyframes fire-flicker-1 {
+    0%, 100% { 
+      transform: translateY(-50%) scale(1); 
+      opacity: 0.95;
+      filter: blur(5px) brightness(1);
+    }
+    50% { 
+      transform: translateY(-50%) scale(1.08); 
+      opacity: 1;
+      filter: blur(6px) brightness(1.2);
+    }
+  }
+  
+  @keyframes fire-flicker-2 {
+    0%, 100% { 
+      transform: scale(1) translateX(0); 
+      opacity: 0.9;
+      filter: blur(5px) brightness(1);
+    }
+    50% { 
+      transform: scale(1.1) translateX(2px); 
+      opacity: 0.95;
+      filter: blur(6px) brightness(1.15);
+    }
+  }
+  
+  @keyframes fire-flicker-3 {
+    0%, 100% { 
+      transform: scale(1) translateX(0); 
+      opacity: 0.85;
+      filter: blur(5px) brightness(1);
+    }
+    50% { 
+      transform: scale(1.12) translateX(-2px); 
+      opacity: 0.9;
+      filter: blur(6px) brightness(1.25);
+    }
+  }
+  
+  @keyframes fire-flicker-4 {
+    0%, 100% { 
+      transform: translateY(-50%) scale(1); 
+      opacity: 0.8;
+      filter: blur(5px) brightness(1);
+    }
+    50% { 
+      transform: translateY(-50%) scale(1.15); 
+      opacity: 0.85;
+      filter: blur(7px) brightness(1.3);
+    }
+  }
+  
+  @keyframes particle-rise-1 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    100% { transform: translate(20px, -50px) scale(2); opacity: 0; }
+  }
+  
+  @keyframes particle-rise-2 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    100% { transform: translate(15px, -55px) scale(2.2); opacity: 0; }
+  }
+  
+  @keyframes particle-rise-3 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    100% { transform: translate(25px, -48px) scale(1.8); opacity: 0; }
+  }
+  
+  @keyframes particle-rise-4 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    100% { transform: translate(18px, -52px) scale(2.1); opacity: 0; }
+  }
+</style>
+
+<script>
+(function() {
+  function initBurnoutButton() {
+    const ticketsButton = document.querySelector('.kg-header-card-button');
+    
+    if (!ticketsButton) {
+      console.log('Tickets button not found');
+      return;
+    }
+    
+    // Add class to remove original button styling
+    ticketsButton.classList.add('burnout-active');
+    
+    // Store original button text
+    const originalText = ticketsButton.textContent.trim();
+    
+    // Clear button content
+    ticketsButton.innerHTML = '';
+    
+    // Create wheel structure with image
+    const wheelContainer = document.createElement('div');
+    wheelContainer.className = 'burnout-wheel';
+    
+    const wheelOuter = document.createElement('div');
+    wheelOuter.className = 'wheel-outer';
+    
+    // Add the Hoosier tire image
+    const wheelImg = document.createElement('img');
+    wheelImg.src = 'https://cdn.klabsdev.com/SlingerSpeedway/images/hoosier-transparent.png';
+    wheelImg.alt = 'Hoosier Tire';
+    
+    wheelOuter.appendChild(wheelImg);
+    wheelContainer.appendChild(wheelOuter);
+    
+    // Create smoke particles rising from wheel
+    const smokeParticles = document.createElement('div');
+    smokeParticles.className = 'smoke-particles';
+    
+    for (let i = 0; i < 4; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'smoke-particle';
+      smokeParticles.appendChild(particle);
+    }
+    
+    wheelContainer.appendChild(smokeParticles);
+    
+    // Create smoke puff with text
+    const smokePuff = document.createElement('div');
+    smokePuff.className = 'smoke-puff-container';
+    
+    // Create multiple overlapping smoke clouds
+    for (let i = 1; i <= 4; i++) {
+      const cloud = document.createElement('div');
+      cloud.className = `smoke-cloud smoke-cloud-${i}`;
+      smokePuff.appendChild(cloud);
+    }
+    
+    // Create text element
+    const textSpan = document.createElement('span');
+    textSpan.className = 'smoke-text';
+    textSpan.textContent = originalText;
+    smokePuff.appendChild(textSpan);
+    
+    // Add elements to button
+    ticketsButton.appendChild(smokePuff);
+    ticketsButton.appendChild(wheelContainer);
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBurnoutButton);
+  } else {
+    initBurnoutButton();
+  }
+})();
+</script>

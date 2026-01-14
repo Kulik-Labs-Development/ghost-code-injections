@@ -1,0 +1,9 @@
+<!-- Hero Video Replacement --> 
+<script>
+  const videoElement = document.createElement("video");
+
+  const pictureElement = document.querySelector(".kg-card.kg-content-wide picture");
+  pictureElement.after(videoElement);
+
+  videoElement.outerHTML = `<video style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; background-color: transparent; pointer-events: none;" muted autoplay playsinline loop src="https://cdn.klabsdev.com/SlingerSpeedway/video/SlingerSquare.mp4"></video>`;
+</script>
