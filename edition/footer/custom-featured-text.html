@@ -1,0 +1,6 @@
+<!-- Custom "Featured" Text -->
+<script>
+var xpath = "//h2[text()='Featured articles']";
+var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+matchingElement.innerHTML = 'Featured Projects';
+</script>
