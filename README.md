@@ -4,9 +4,11 @@ A collection of scripts used on Kulik Labs Development Ghost sites that are used
 Please follow the directory structure to ensure that scripts are easy to find and it's well known what they can be used for. 
 
 
+```plaintext
 project-root/
 └── theme/
     ├── header/
-    │   └── header-script
+    │   └── header-script.html
     └── footer/
-        └── footer-script
+        └── footer-script.html
+```
