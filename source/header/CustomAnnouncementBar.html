@@ -26,3 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
   }
+  // Run once
+  updateAnnouncement();
+
+  // Run again shortly in case Ghost injects it late
+  setTimeout(updateAnnouncement, 500);
+});
+</script>
