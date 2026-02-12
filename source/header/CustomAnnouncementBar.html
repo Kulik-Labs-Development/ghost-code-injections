@@ -1,0 +1,28 @@
+<!-- Custom Announcement Bar --> 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function updateAnnouncement() {
+    const selectors = [
+      '.gh-announcement-bar',
+      '.announcement-bar',
+      '[data-ghost-announcement]'
+    ];
+
+    let bar = null;
+
+    for (const sel of selectors) {
+      bar = document.querySelector(sel);
+      if (bar) break;
+    }
+
+    if (!bar) return;
+
+    bar.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:center;">
+        <img src="https://cdn.klabsdev.com/SlingerSpeedway/images/FloRacingFavicon.png" alt="Live" style="width:20px; height:20px;">
+        <span>
+          Watch the race <a href="https://flosports.link/slinger2026" target="_blank" rel="noopener noreferrer" style="font-weight:bold; text-decoration:underline;"> LIVE NOW!</a>
+        </span>
+      </div>
+    `;
+  }
