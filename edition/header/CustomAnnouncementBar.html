@@ -1,0 +1,22 @@
+<!-- Custom Announcement Bar --> 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function updateAnnouncement() {
+    const bar = document.querySelector('.gh-announcement-bar');
+    if (!bar) return;
+
+    bar.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:center; gap:6px; font-weight:600;">
+        <span>📞 Call today for a quote! </span>
+        <a href="tel:12623309792"
+           style="text-decoration:underline;">
+          CALL NOW 262-330-9792
+        </a>
+      </div>
+    `;
+  }
+
+  updateAnnouncement();
+  setTimeout(updateAnnouncement, 500); // handles late render
+});
+</script>
